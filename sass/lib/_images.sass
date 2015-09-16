@@ -1,0 +1,17 @@
+//shortcut
+=pic($name)
+	background: url("../img/#{$name}") no-repeat 0 0
+	//background-image: inline-image("#{$name}",'image/png')
+	+image-size("img/#{$name}") 
+
+
+=png($name)    
+	background: url("../img/#{$name}.png") no-repeat 0 0
+	//background-image: inline-image("#{$name}.png",'image/png')
+	+image-size("img/#{$name}.png")
+=jpg($name)
+	background: url("../img/#{$name}.jpg") no-repeat 0 0
+	//background-image: inline-image("#{$name}.jpg",'image/jpg')
+	+image-size("img/#{$name}.jpg")
+
+	
