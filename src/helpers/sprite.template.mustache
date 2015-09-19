@@ -1,0 +1,38 @@
+{
+  // Default options
+  'functions': true
+}
+
+$icons: (
+{{#items}}
+  {{name}}: (X: {{px.offset_x}}, Y:{{px.offset_y}}, W: {{px.width}}, H: {{px.height}}, TW: {{px.total_width}}, TH: {{px.total_height}}, IMG: '{{{escaped_image}}}'),
+{{/items}}
+);
+
+
+{{#options.functions}}
+// Gets an attribute from the sass map
+@function icon-attr($icon, $attr) {
+  $icon: map-get($icons, $icon);
+  @return map-get($icon, $attr);
+}
+
+@mixin sprite($iconName) {
+  background-image: url(icon-attr($iconName, IMG));
+  width: icon-attr($iconName, W);
+  height: icon-attr($iconName, H);
+  background-position: icon-attr($iconName, X) icon-attr($iconName, Y);
+}
+{{/options.functions}}
+
+
+
+{{#items}}
+.icon-{{name}} {
+  width: {{px.width}};
+  height: {{px.height}};
+  background-image: url('{{{escaped_image}}}');
+  background-position: {{px.offset_x}} {{px.offset_y}};
+}
+
+{{/items}}
