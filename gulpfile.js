@@ -3,12 +3,16 @@
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     postcss = require('gulp-postcss'),
-    autoprefixer      = require('autoprefixer'),
+    sourcemaps = require('gulp-sourcemaps'),
+    autoprefixer = require('autoprefixer'),
     rigger = require('gulp-rigger'),
-    spritesmith  = require('gulp.spritesmith'),
+    spritesmith = require('gulp.spritesmith'),
     browserSync = require("browser-sync"),
     reload = browserSync.reload;
 
+// @TODO: add rimraf to cleanup old files
+// @TODO: add icon font creation
+// @TODO: add jade task
 // @TODO: move all paths to these variables
 var src = {
     root    : 'src',
@@ -39,13 +43,14 @@ gulp.task('sass', function() {
     ];
 
     return sass('src/sass/*.sass', {
-        sourcemap: false,
+        sourcemap: true,
         style: 'compact'
     }) 
     .on('error', function (err) {
       console.error('Error', err.message);
     })
     .pipe(postcss(processors))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('site/css/'));
 });
 
