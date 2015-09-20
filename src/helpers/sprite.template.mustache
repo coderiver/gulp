@@ -3,8 +3,7 @@
   'functions': true
 }
 
-$icons: (codedby: (X: 0px, Y:-15px, W: 47px, H: 5px, TW: 49px, TH: 20px, IMG: '../img/icons.png'))
-
+$icons: (0:0)
 {{#items}}
 $icons: map-merge($icons,({{name}}: (X: {{px.offset_x}}, Y:{{px.offset_y}}, W: {{px.width}}, H: {{px.height}}, TW: {{px.total_width}}, TH: {{px.total_height}}, IMG: '{{{escaped_image}}}')))
 {{/items}}

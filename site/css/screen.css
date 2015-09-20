@@ -31,4 +31,4 @@ body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
 .l .l-col1 { float: left; width: 20%; }
 .l .l-col2 { float: right; width: 70%; }
 
-body { background-image: url("../img/icons.png"); width: 47px; height: 5px; background-position: 0px -15px; display: -webkit-flex; display: -ms-flexbox; display: flex; }
+body { background-image: url("../img/icons.png"); width: 49px; height: 5px; background-position: 0px 0px; display: -webkit-flex; display: -ms-flexbox; display: flex; }
