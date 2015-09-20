@@ -3,36 +3,33 @@
   'functions': true
 }
 
-$icons: (
+$icons: (codedby: (X: 0px, Y:-15px, W: 47px, H: 5px, TW: 49px, TH: 20px, IMG: '../img/icons.png'))
+
 {{#items}}
-  {{name}}: (X: {{px.offset_x}}, Y:{{px.offset_y}}, W: {{px.width}}, H: {{px.height}}, TW: {{px.total_width}}, TH: {{px.total_height}}, IMG: '{{{escaped_image}}}'),
+$icons: map-merge($icons,({{name}}: (X: {{px.offset_x}}, Y:{{px.offset_y}}, W: {{px.width}}, H: {{px.height}}, TW: {{px.total_width}}, TH: {{px.total_height}}, IMG: '{{{escaped_image}}}')))
 {{/items}}
-);
 
 
 {{#options.functions}}
 // Gets an attribute from the sass map
-@function icon-attr($icon, $attr) {
-  $icon: map-get($icons, $icon);
-  @return map-get($icon, $attr);
-}
+@function icon-attr($icon, $attr)
+  $icon: map-get($icons, $icon)
+  @return map-get($icon, $attr)
 
-@mixin sprite($iconName) {
-  background-image: url(icon-attr($iconName, IMG));
-  width: icon-attr($iconName, W);
-  height: icon-attr($iconName, H);
-  background-position: icon-attr($iconName, X) icon-attr($iconName, Y);
-}
+@mixin sprite($iconName)
+  background-image: url(icon-attr($iconName, IMG))
+  width: icon-attr($iconName, W)
+  height: icon-attr($iconName, H)
+  background-position: icon-attr($iconName, X) icon-attr($iconName, Y)
 {{/options.functions}}
 
-
+@mixin s($i)
+  +sprite($i)
 
 {{#items}}
-.icon-{{name}} {
-  width: {{px.width}};
-  height: {{px.height}};
-  background-image: url('{{{escaped_image}}}');
-  background-position: {{px.offset_x}} {{px.offset_y}};
-}
-
+.icon-{{name}}
+  width: {{px.width}}
+  height: {{px.height}}
+  background-image: url('{{{escaped_image}}}')
+  background-position: {{px.offset_x}} {{px.offset_y}}
 {{/items}}
