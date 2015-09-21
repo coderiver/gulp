@@ -182,7 +182,7 @@ gulp.task('browser-sync', function() {
         notify: false,
         ghostMode: false, 
         online: false,
-        open: false
+        open: true
     });
 });
 
