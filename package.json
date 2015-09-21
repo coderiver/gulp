@@ -1,5 +1,5 @@
 {
-  "name": "Coderiver-project",
+  "name": "Coderiver-Project",
   "version": "0.1.0",
   "devDependencies": {
     "autoprefixer": "~6.0.3",
@@ -10,6 +10,7 @@
     "gulp-rigger": "^0.5.8",
     "gulp-ruby-sass": "~2.0.3",
     "gulp-sourcemaps": "^1.5.2",
-    "gulp.spritesmith": "^4.1.0"
+    "gulp.spritesmith": "^4.1.0",
+    "rimraf": "^2.4.3"
   }
 }
