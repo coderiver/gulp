@@ -22,7 +22,7 @@ table { border-spacing: 0; border-collapse: collapse; width: 100%; }
 
 body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
 
-.icon-codedby { width: 47px; height: 5px; background-image: url("../img/icons.png"); background-position: 0px -15px; }
+.icon-codedby { width: 47px; height: 5px; background-image: url("../img/icons.png"); background-position: 0px -9px; }
 
 .icon-coderiver { width: 49px; height: 5px; background-image: url("../img/icons.png"); background-position: 0px 0px; }
 
@@ -30,8 +30,6 @@ body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
 .l:after { content: " "; display: table; clear: both; }
 .l .l-col1 { float: left; width: 20%; }
 .l .l-col2 { float: right; width: 70%; }
-
-body { background-image: url("../img/icons.png"); width: 49px; height: 5px; background-position: 0px 0px; display: -webkit-flex; display: -ms-flexbox; display: flex; }
 
 
 
