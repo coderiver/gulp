@@ -13,7 +13,6 @@ var gulp = require('gulp'),
     rimraf = require('rimraf'),
     reload = browserSync.reload;
 
-// @TODO: add rimraf to cleanup old files
 // @TODO: move all paths to these variables
 var src = {
     root    : 'src',
@@ -96,7 +95,7 @@ gulp.task('copy', function() {
    .pipe(gulp.dest('site/img/')); 
 });
 
-gulp.task('clean', function (cb) {
+gulp.task('delete', function (cb) {
     rimraf('./site', cb);
 });
 
@@ -123,17 +122,13 @@ gulp.task('clean', function (cb) {
 // });
 
 
-// icon font, requires:
-// = gulp-iconfont
-// = gulp-consolidate
-// = gulp-lodash
-// = gulp-svgmin
-var fontName = 'svgfont1';
+// icon font
+var fontname = 'svgfont';
 gulp.task('font', function(){
   return gulp.src('src/img/svg/*.svg')
     // .pipe(svgmin())
     .pipe(iconfont({
-      fontName: 'svgfont123',
+      fontName: fontname,
       appendUnicode: true,
       formats: ['ttf', 'eot', 'woff', 'woff2'],
       // timestamp: runTimestamp,
@@ -144,19 +139,19 @@ gulp.task('font', function(){
     }))
     .on('glyphs', function(glyphs, options) {
         console.log(glyphs);
-        gulp.src('src/sass/fonts/_svgfont.scss')
+        gulp.src('src/helpers/_svgfont.sass')
             .pipe(consolidate('lodash', {
                 glyphs: glyphs,
-                fontName: 'svgfont',
-                fontPath: '../css/fonts/',
+                fontName: fontname,
+                fontPath: 'fonts/',
                 className: 'icon'
             }))
             .pipe(gulp.dest('src/sass/'));
         gulp.src('src/assets/icons.html')
             .pipe(consolidate('lodash', {
                 glyphs: glyphs,
-                fontName: 'svgfont',
-                fontPath: '../css/fonts/',
+                fontName: fontname,
+                fontPath: 'fonts/',
                 className: 'icon',
                 htmlBefore: '<i class="icon ',
                 htmlAfter: '"></i>',
@@ -192,9 +187,11 @@ gulp.task('watch', function() {
     gulp.watch(src.sass + '/**/*', ['sass']);
     gulp.watch('src/js/*', ['js']);
     gulp.watch('src/img/*', ['copy']);
+    gulp.watch('src/img/svg/*', ['font']);
     gulp.watch(['src/*.html', 'src/partials/*.html'], ['html']);
     gulp.watch(src.img + '/icons/*.png', ['sprite']);
 });
 
 
 gulp.task('default', ['browser-sync', 'watch'], function() {});
+gulp.task('build', ['html','font','sprite','copy','js','sass'], function() {});
