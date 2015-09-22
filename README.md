@@ -20,12 +20,12 @@ _Sass_ is compiled and postprocessed with wonderfull Autoprefixer.
 `src/img/icons` are joined into sprite, which could be used in Sass like this
 ```
 .icon
-    +s(_icon_name_)
+    +s(icon_name)
 ```
 
 `src/img/svg` are joined into font, and can be used like this
 ```
-&lt;i class="icon-_svgname_"&gt;&lt;/i&gt;
+<i class="icon-svgname"></i>
 ```
 
 Naming blocks
