@@ -8,6 +8,8 @@ var gulp = require('gulp'),
     rigger = require('gulp-rigger'),
     spritesmith = require('gulp.spritesmith'),
     browserSync = require("browser-sync"),
+    iconfont = require("gulp-iconfont"),
+    consolidate = require("gulp-consolidate"),
     rimraf = require('rimraf'),
     reload = browserSync.reload;
 
@@ -126,45 +128,45 @@ gulp.task('clean', function (cb) {
 // = gulp-consolidate
 // = gulp-lodash
 // = gulp-svgmin
-// var fontName = 'svgfont';
-// gulp.task('font', function(){
-//   return gulp.src('src/img/svg/*.svg')
-//     .pipe(svgmin())
-//     .pipe(iconfont({
-//       fontName: 'svgfont',
-//       appendUnicode: true,
-//       formats: ['ttf', 'eot', 'woff', 'woff2'],
-//       // timestamp: runTimestamp,
-//       normalize: true,
-//       fontHeight: 1001,
-//       fontStyle: 'normal',
-//       fontWeight: 'normal'
-//     }))
-//     .on('glyphs', function(glyphs, options) {
-//         console.log(glyphs);
-//         gulp.src('src/sass/_svgfont.scss')
-//             .pipe(consolidate('lodash', {
-//                 glyphs: glyphs,
-//                 fontName: 'svgfont',
-//                 fontPath: '../css/fonts/',
-//                 className: 'icon'
-//             }))
-//             .pipe(gulp.dest('src/sass/'));
-//         gulp.src('src/assets/icons.html')
-//             .pipe(consolidate('lodash', {
-//                 glyphs: glyphs,
-//                 fontName: 'svgfont',
-//                 fontPath: '../css/fonts/',
-//                 className: 'icon',
-//                 htmlBefore: '<i class="icon ',
-//                 htmlAfter: '"></i>',
-//                 htmlBr: '<br>'
-//             }))
-//             .pipe(gulp.dest('build/'));
-//     })
-//     .pipe(gulp.dest('site/css/fonts/'))
-//     .pipe(reload({stream: true}));
-// });
+var fontName = 'svgfont1';
+gulp.task('font', function(){
+  return gulp.src('src/img/svg/*.svg')
+    // .pipe(svgmin())
+    .pipe(iconfont({
+      fontName: 'svgfont123',
+      appendUnicode: true,
+      formats: ['ttf', 'eot', 'woff', 'woff2'],
+      // timestamp: runTimestamp,
+      normalize: true,
+      fontHeight: 1001,
+      fontStyle: 'normal',
+      fontWeight: 'normal'
+    }))
+    .on('glyphs', function(glyphs, options) {
+        console.log(glyphs);
+        gulp.src('src/sass/fonts/_svgfont.scss')
+            .pipe(consolidate('lodash', {
+                glyphs: glyphs,
+                fontName: 'svgfont',
+                fontPath: '../css/fonts/',
+                className: 'icon'
+            }))
+            .pipe(gulp.dest('src/sass/'));
+        gulp.src('src/assets/icons.html')
+            .pipe(consolidate('lodash', {
+                glyphs: glyphs,
+                fontName: 'svgfont',
+                fontPath: '../css/fonts/',
+                className: 'icon',
+                htmlBefore: '<i class="icon ',
+                htmlAfter: '"></i>',
+                htmlBr: '<br>'
+            }))
+            .pipe(gulp.dest('build/'));
+    })
+    .pipe(gulp.dest('site/css/fonts/'))
+    .pipe(reload({stream: true}));
+});
 
 
 
