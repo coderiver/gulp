@@ -45,7 +45,7 @@ gulp.task('sass', function() {
     return sass('src/sass/*.sass', {
         sourcemap: true,
         style: 'compact'
-    }) 
+    })
     .on('error', function (err) {
       console.error('Error', err.message);
     })
@@ -69,22 +69,22 @@ gulp.task('sprite', function() {
         cssTemplate: src.helpers + '/sprite.template.mustache'
     }));
     spriteData.img
-        .pipe(gulp.dest(dest.img)); 
+        .pipe(gulp.dest(dest.img));
     spriteData.css
         .pipe(gulp.dest(src.sass));
 });
 
 // html includes
 gulp.task('html', function () {
-    gulp.src('src/*.html') 
+    gulp.src('src/*.html')
         .pipe(rigger())
         .pipe(gulp.dest('site/'))
         .pipe(reload({stream: true}));
 });
- 
+
 // js includes
 gulp.task('js', function () {
-    gulp.src('src/js/**/*.js') 
+    gulp.src('src/js/**/*.js')
         .pipe(rigger())
         .pipe(gulp.dest('site/js/'))
         .pipe(reload({stream: true}));
@@ -92,7 +92,7 @@ gulp.task('js', function () {
 
 gulp.task('copy', function() {
    gulp.src('src/img/*.*')
-   .pipe(gulp.dest('site/img/')); 
+   .pipe(gulp.dest('site/img/'));
 });
 
 gulp.task('delete', function (cb) {
@@ -147,7 +147,7 @@ gulp.task('font', function(){
                 className: 'icon'
             }))
             .pipe(gulp.dest('src/sass/'));
-        gulp.src('src/assets/icons.html')
+        gulp.src('src/helpers/icons.html')
             .pipe(consolidate('lodash', {
                 glyphs: glyphs,
                 fontName: fontname,
@@ -155,9 +155,9 @@ gulp.task('font', function(){
                 className: 'icon',
                 htmlBefore: '<i class="icon ',
                 htmlAfter: '"></i>',
-                htmlBr: '<br>'
+                htmlBr: ''
             }))
-            .pipe(gulp.dest('build/'));
+            .pipe(gulp.dest('site/'));
     })
     .pipe(gulp.dest('site/css/fonts/'))
     .pipe(reload({stream: true}));
@@ -177,7 +177,7 @@ gulp.task('browser-sync', function() {
         files: [dest.html + '/*.html', dest.css + '/*.css', dest.js + '/*.js'],
         port: 8080,
         notify: false,
-        ghostMode: false, 
+        ghostMode: false,
         online: false,
         open: true
     });
