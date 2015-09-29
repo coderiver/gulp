@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('autoprefixer'),
     rigger = require('gulp-rigger'),
+    jade = require('gulp-rigger'),
     spritesmith = require('gulp.spritesmith'),
     browserSync = require("browser-sync"),
     iconfont = require("gulp-iconfont"),
@@ -93,6 +94,10 @@ gulp.task('js', function () {
 gulp.task('copy', function() {
    gulp.src('src/img/*.*')
    .pipe(gulp.dest('site/img/'));
+   gulp.src('src/fonts/*.*')
+   .pipe(gulp.dest('site/css/fonts/'));
+   gulp.src('src/video/*.*')
+   .pipe(gulp.dest('site/video/'));
 });
 
 gulp.task('delete', function (cb) {
