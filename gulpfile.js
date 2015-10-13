@@ -12,6 +12,7 @@ var gulp = require('gulp'),
     iconfont = require("gulp-iconfont"),
     consolidate = require("gulp-consolidate"),
     rimraf = require('rimraf'),
+    combineMq = require('gulp-combine-mq'),
     reload = browserSync.reload;
 
 // @TODO: move all paths to these variables
@@ -50,6 +51,7 @@ gulp.task('sass', function() {
     .on('error', function (err) {
       console.error('Error', err.message);
     })
+    //.pipe(combineMq({beautify: false}))
     .pipe(postcss(processors))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('site/css/'));
