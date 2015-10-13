@@ -12,7 +12,7 @@ var gulp = require('gulp'),
     iconfont = require("gulp-iconfont"),
     consolidate = require("gulp-consolidate"),
     rimraf = require('rimraf'),
-    combineMq = require('gulp-combine-mq'),
+    mqpacker = require("css-mqpacker"),
     reload = browserSync.reload;
 
 // @TODO: move all paths to these variables
@@ -41,7 +41,8 @@ var dest = {
 gulp.task('sass', function() {
 
     var processors = [
-        autoprefixer({browsers: ['last 4 versions'], cascade: false})
+        autoprefixer({browsers: ['last 4 versions'], cascade: false}),
+        mqpacker()
     ];
 
     return sass('src/sass/*.sass', {
@@ -51,7 +52,6 @@ gulp.task('sass', function() {
     .on('error', function (err) {
       console.error('Error', err.message);
     })
-    //.pipe(combineMq({beautify: false}))
     .pipe(postcss(processors))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('site/css/'));
