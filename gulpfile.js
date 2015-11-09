@@ -41,13 +41,14 @@ var dest = {
 gulp.task('sass', function() {
 
     var processors = [
-        autoprefixer({browsers: ['last 10 versions'], cascade: false})
-        //,
-        //mqpacker({
-        //    sort: function (a, b) {
-        //      return b.localeCompare(a);
-        //    }
-        //})
+        autoprefixer({browsers: ['last 10 versions'], cascade: false}),
+        mqpacker({
+            sort: function (a, b) {
+            a = a.replace(/\D/g,'');
+            b = b.replace(/\D/g,'');
+            return b-a;
+            }
+        })
     ];
 
     return sass('src/sass/*.sass', {
