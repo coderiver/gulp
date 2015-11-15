@@ -44,9 +44,9 @@ gulp.task('sass', function() {
         autoprefixer({browsers: ['last 10 versions'], cascade: false}),
         mqpacker({
             sort: function (a, b) {
-            a = a.replace(/\D/g,'');
-            b = b.replace(/\D/g,'');
-            return b-a;
+                a = a.replace(/\D/g,'');
+                b = b.replace(/\D/g,'');
+                return b-a;
             }
         })
     ];
@@ -106,6 +106,8 @@ gulp.task('copy', function() {
    .pipe(gulp.dest('site/css/fonts/'));
    gulp.src('src/video/*.*')
    .pipe(gulp.dest('site/video/'));
+   gulp.src('src/fonts/*.*')
+   .pipe(gulp.dest('site/css/fonts/'));
 });
 
 gulp.task('delete', function (cb) {
@@ -200,6 +202,7 @@ gulp.task('watch', function() {
     gulp.watch(src.sass + '/**/*', ['sass']);
     gulp.watch('src/js/*', ['js']);
     gulp.watch('src/img/*', ['copy']);
+    gulp.watch('src/fonts/*', ['copy']);
     gulp.watch('src/img/svg/*', ['font']);
     gulp.watch(['src/*.html', 'src/partials/*.html'], ['html']);
     gulp.watch(src.img + '/icons/*.png', ['sprite']);
