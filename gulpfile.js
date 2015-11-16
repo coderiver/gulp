@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('autoprefixer'),
     rigger = require('gulp-rigger'),
-    jade = require('gulp-rigger'),
     spritesmith = require('gulp.spritesmith'),
     browserSync = require("browser-sync"),
     iconfont = require("gulp-iconfont"),
@@ -120,6 +119,14 @@ gulp.task('delete', function (cb) {
 // = gulp-jade
 // = gulp-changed
 // = gulp-plumber
+// = gulp-notify
+// npm install gulp-jade && npm-install gulp-changed && npm-install gulp-plumber && npm-install gulp-notify
+//  notify = require("browser-notify")
+//  plumber = require("browser-plumber")
+//  jade = require("browser-jade")
+// watch:
+//  gulp.watch(src.jade + '/**/*.jade', ['jade']);
+//  gulp.watch([src.jade + '/_*.jade', src.jade + '/includes/*.jade'], ['jade-all']);
 // gulp.task('jade', function() {
 //     return gulp.src([src.jade + '/*.jade', '!' + src.jade + '/_*.jade', '!' + src.jade + '/includes/*.jade'])
 //         .pipe(plumber({errorHandler: notify.onError(function(error){return error.message;})}))
