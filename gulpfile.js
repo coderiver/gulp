@@ -5,8 +5,8 @@ var gulp = require('gulp'),
     postcss = require('gulp-postcss'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('autoprefixer'),
-    rigger = require('gulp-rigger'),
     notify = require('gulp-notify'),
+    include = require("gulp-include"),
     spritesmith = require('gulp.spritesmith'),
     browserSync = require("browser-sync"),
     iconfont = require("gulp-iconfont"),
@@ -16,7 +16,7 @@ var gulp = require('gulp'),
     reload = browserSync.reload;
 
 // what and where to compile
-var src = {
+var src  = {
     root    : 'src/',
     jade    : 'src/jade',
     sass    : 'src/sass/',
@@ -24,13 +24,12 @@ var src = {
     img     : 'src/img/',
     helpers : 'src/helpers/'
 };
-//** dest paths **
 var dest = {
-    root : 'site/',
-    css  : 'site/css/',
-    html : 'site/',
-    js   : 'site/js/',
-    img  : 'site/img/'
+    root    : 'site/',
+    css     : 'site/css/',
+    html    : 'site/',
+    js      : 'site/js/',
+    img     : 'site/img/'
 };
 
 
@@ -88,7 +87,8 @@ gulp.task('sprite', function() {
 // html includes
 gulp.task('html', function () {
     gulp.src(src.root+'*.html')
-        .pipe(rigger())
+        .pipe(include())
+        .on('error', function(){notify("HTML include error");})
         .pipe(gulp.dest(dest.root))
         .pipe(reload({stream: true}));
 });
@@ -96,11 +96,13 @@ gulp.task('html', function () {
 // js includes
 gulp.task('js', function () {
     gulp.src(src.js+'**/*.js')
-        .pipe(rigger())
+        .pipe(include())
+        .on('error', function(){notify("Javascript include error");})
         .pipe(gulp.dest(dest.js))
         .pipe(reload({stream: true}));
 });
 
+// copy static files
 gulp.task('copy', function() {
    gulp.src(src.img+'*.*')
    .pipe(gulp.dest(dest.img));
@@ -154,7 +156,6 @@ gulp.task('font', function(){
       fontName: fontname,
       appendUnicode: true,
       formats: ['ttf', 'eot', 'woff', 'woff2'],
-      // timestamp: runTimestamp,
       normalize: true,
       fontHeight: 1001,
       fontStyle: 'normal',
@@ -194,9 +195,7 @@ gulp.task('font', function(){
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: dest.root,
-            // directory: true,
-            // index: 'index.html'
+            baseDir: dest.root
         },
         files: [dest.html + '*.html', dest.css + '*.css', dest.js + '*.js'],
         port: 8080,

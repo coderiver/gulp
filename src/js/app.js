@@ -1,3 +1,3 @@
-//= lib/jquery.js
-//= lib/slick.min.js
-//= common.js
+//=include lib/jquery.js
+//=include lib/slick.min.js
+//=include common.js
