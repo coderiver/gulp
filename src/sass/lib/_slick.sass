@@ -21,7 +21,7 @@
 	&:focus
 		outline: none
 	.slick-loading &
-		background: white slick-image-url("ajax-loader.gif") center center no-repeat
+		background: white
 	&.dragging
 		cursor: pointer
 		cursor: hand
@@ -30,12 +30,7 @@
 .slick-track,
 .slick-slide,
 .slick-slide img
-	-webkit-transform: translate3d(0, 0, 0)
-	-moz-transform: translate3d(0, 0, 0)
-	-ms-transform: translate3d(0, 0, 0)
-	-o-transform: translate3d(0, 0, 0)
 	transform: translate3d(0, 0, 0)
-
 .slick-track
 	position: relative
 	left: 0
@@ -60,7 +55,6 @@
 		max-width: 100%
 	&.slick-loading img
 		display: none
-	display: none
 	&.dragging img
 		pointer-events: none
 	.slick-initialized &
@@ -76,33 +70,31 @@
 .slick-next
 	position: absolute
 	top: 50%
-	margin-top: -14px
+	margin-top: -10px
 	+hide-text
-	height: 50px
+	height: 20px
 	background: none
+	left: 0
+	z-index: 1 
 	&:focus
 		outline: none
 	&.slick-disabled
 		opacity: 0.2
 	&:before
-		height: 50px
-		line-height: 50px
-.slick-prev
-	left: 0
-	&:before
-		content: "←"
+		height: 30px
+		line-height: 30px
+		content: "prev"
 		display: inline-block
 		vertical-align: middle
-		font-size: 61px
+		font-size: 15px
 		color: #fff
+		background: #000 
 .slick-next
 	right: 0
+	left: auto
 	&:before
-		content: "→"
+		content: "next"
 		display: inline-block
-		vertical-align: middle
-		font-size: 61px
-		color: #fff
 .slick-dots
 	text-align: center
 	position: absolute
@@ -116,19 +108,13 @@
 		padding: 0 3px
 		&.slick-active
 			button
-				opacity: 0.3
-				box-shadow: none
-		&:before
-			display: none
-
+				background: #000 
 	button
 		display: block
-		width: 6px
-		height: 6px
+		width: 10px
+		height: 10px
 		background: #fff
 		box-shadow: 0 1px 5px rgba(0,0,0,.25)
 		cursor: pointer
 		+hide-text
 		border-radius: 50%
-		&:hover
-			box-shadow: none

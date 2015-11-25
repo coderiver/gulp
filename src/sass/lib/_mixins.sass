@@ -1,28 +1,96 @@
-
-// width
+@import media
+// less than X
 =r($width)
 	@media only screen and (max-width: $width+ "px")
 		@content
 
-// height
+// more than X
+=rm($width)
+	@media only screen and (min-width: $width+ "px")
+		@content
+
+// height, less than X
 =rh($height)
 	@media only screen and (max-height: $height + "px")
 		@content
 
-=fs($sizeValue: 16)
-	font-size: $sizeValue + px
-	font-size: $sizeValue / 10 + rem
+=clr
+	&:after
+		content: " "
+		display: table
+		clear: both
+	*zoom: 1
+
+=g($color1, $color2)
+	background-color: $color1
+	background-image: linear-gradient($color1, $color2)
+
+=gh($color1, $color2)
+	background-color: $color1
+	background-image: linear-gradient(to right, $color1, $color2)
+
+// easy vertical-align at center
+=vcenter
+	position: absolute
+	top: 50%
+	left: 50%
+	+translate(-50%,-50%)
+
+// bulletproof vertical-align
+=vertical
+	text-align: center
+	font-size: 0
+	&:before
+		content: ""
+		display: inline-block
+		vertical-align: middle
+		width: 0
+		height: 100%
+		
+// justify, set on parent
+=justify
+	text-align: justify
+	line-height: 0
+	font-size: 0
+	text-justify: newspaper
+	zoom: 1
+	text-align-last: justify
+	&:after
+		content: ""
+		display: inline-block
+		width: 100%
+		height: 0px
+		visibility: hidden
+		overflow: hidden
+		
+// fast font-family
+=font($alias, $name)
+	@font-face
+		font-family: $alias
+		src: url("fonts/" + $name + ".eot")
+		src: url("fonts/" + $name + ".eot?#iefix") format("embedded-opentype"), url("fonts/" + $name + ".woff2") format("woff2"), url("fonts/" + $name + ".woff") format("woff"), url("fonts/" + $name + ".ttf") format("truetype")
+		font-weight: normal
+		font-style: normal
+// usage:
+//+font(black, cytiapro-black-webfont)
+
+=placeholder
+	&::placeholder
+		@content
 
 =text-overflow
 	overflow: hidden
 	-ms-text-overflow: ellipsis
 	text-overflow: ellipsis
 	white-space: nowrap
+	
 =ie
 	*display: inline
 	*zoom: 1
+	
 =box
 	box-sizing: border-box
+	
 %pseudo
 	position: relative
 	&:before,&:after
@@ -53,39 +121,6 @@
 	@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2)
 		@content
 
-
-// vertical-align at center
-=vcenter
-	position: absolute
-	top: 50%
-	left: 50%
-	+translate(-50%,-50%)
-
-=g($color1, $color2)
-	background-color: $color1
-	background-image: linear-gradient($color1, $color2)
-
-=gh($color1, $color2)
-	background-color: $color1
-	background-image: linear-gradient(to right, $color1, $color2)
-
-//asdfast font-family
-=font($alias, $name)
-	@font-face
-		font-family: $alias
-		src: url("fonts/" + $name + ".eot")
-		src: url("fonts/" + $name + ".eot?#iefix") format("embedded-opentype"), url("fonts/" + $name + ".woff2") format("woff2"), url("fonts/" + $name + ".woff") format("woff"), url("fonts/" + $name + ".ttf") format("truetype")
-		font-weight: normal
-		font-style: normal
-// usage:
-//+font(black, cytiapro-black-webfont)
-
-// ROTATE
-=rotate($deg: 0, $m11: 0, $m12: 0, $m21: 0, $m22: 0)
-	transform: rotate($deg + deg)
-
-
-
 =tr($what)
 	transition: $what
 
@@ -96,49 +131,6 @@
 
 =hidetext
 	+hide-text
-
-=justify
-	text-align: justify
-	line-height: 0
-	font-size: 0
-	text-justify: newspaper
-	zoom: 1
-	text-align-last: justify
-	&:after
-		content: ""
-		display: inline-block
-		width: 100%
-		height: 0px
-		visibility: hidden
-		overflow: hidden
-=vertical
-	text-align: center
-	font-size: 0
-	&:before
-		content: ""
-		display: inline-block
-		vertical-align: middle
-		width: 0
-		height: 100%
-
-=clr
-	&:after
-		content: " "
-		display: table
-		clear: both
-	*zoom: 1
-
-=placeholder-color($color)
-	&:-moz-placeholder,
-	&::-moz-placeholder
-		color: $color
-		opacity: 1
-	&::-webkit-input-placeholder
-		color: $color
-
-=placeholder
-	&::placeholder
-		@content
 
 =gray
 	filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale")
@@ -199,9 +191,6 @@
 	+transform(translate3d(0, 0, 0))
 
 =smooth-triangle
-	-webkit-transform: rotate(0.05deg)
-	-moz-transform: scale(1.1)
-	-o-transform: rotate(0.05deg)
 	transform: rotate(0.05deg)
 
 =scrollbar
@@ -259,6 +248,7 @@
 =blur($var)
 	-webkit-filter: blur($var)
 	filter: blur($var)
+	
 =scale($var)
 	transform: scale($var)
 
@@ -277,3 +267,7 @@
 
 =longshadow($color)
 	text-shadow: makelongshadow($color)
+	
+=fs($sizeValue: 16)
+	font-size: $sizeValue + px
+	font-size: $sizeValue / 10 + rem

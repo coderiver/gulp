@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('autoprefixer'),
     rigger = require('gulp-rigger'),
+    notify = require('gulp-notify'),
     spritesmith = require('gulp.spritesmith'),
     browserSync = require("browser-sync"),
     iconfont = require("gulp-iconfont"),
@@ -14,24 +15,22 @@ var gulp = require('gulp'),
     mqpacker = require("css-mqpacker"),
     reload = browserSync.reload;
 
-// @TODO: move all paths to these variables
+// what and where to compile
 var src = {
-    root    : 'src',
+    root    : 'src/',
     jade    : 'src/jade',
     sass    : 'src/sass/',
-    js      : 'src/js',
-    img     : 'src/img',
-    svg     : 'src/img/svg',
-    helpers : 'src/helpers'
+    js      : 'src/js/',
+    img     : 'src/img/',
+    helpers : 'src/helpers/'
 };
-
 //** dest paths **
 var dest = {
-    root : 'site',
-    html : 'site',
-    css  : 'site/css',
-    js   : 'site/js',
-    img  : 'site/img'
+    root : 'site/',
+    css  : 'site/css/',
+    html : 'site/',
+    js   : 'site/js/',
+    img  : 'site/img/'
 };
 
 
@@ -46,20 +45,23 @@ gulp.task('sass', function() {
                 a = a.replace(/\D/g,'');
                 b = b.replace(/\D/g,'');
                 return b-a;
+                // replace this with a-b for Mobile First approach
             }
         })
     ];
 
-    return sass('src/sass/*.sass', {
+    return sass(src.sass+'*.sass', {
         sourcemap: true,
-        style: 'compact'
+        style: 'compact',
+        emitCompileError: true
     })
-    .on('error', function (err) {
-      console.error('Error', err.message);
-    })
+    .on('error', notify.onError({
+        title: 'Sass Error!',
+        message: '<%= error.message %>'
+    }))
     .pipe(postcss(processors))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('site/css/'));
+    .pipe(gulp.dest(dest.css));
 });
 
 
@@ -79,38 +81,37 @@ gulp.task('sprite', function() {
     spriteData.img
         .pipe(gulp.dest(dest.img));
     spriteData.css
-        .pipe(gulp.dest(src.sass));
+        .pipe(gulp.dest(src.sass+'/lib/'))
+        .pipe(notify("New sprite created!"));
 });
 
 // html includes
 gulp.task('html', function () {
-    gulp.src('src/*.html')
+    gulp.src(src.root+'*.html')
         .pipe(rigger())
-        .pipe(gulp.dest('site/'))
+        .pipe(gulp.dest(dest.root))
         .pipe(reload({stream: true}));
 });
 
 // js includes
 gulp.task('js', function () {
-    gulp.src('src/js/**/*.js')
+    gulp.src(src.js+'**/*.js')
         .pipe(rigger())
-        .pipe(gulp.dest('site/js/'))
+        .pipe(gulp.dest(dest.js))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('copy', function() {
-   gulp.src('src/img/*.*')
-   .pipe(gulp.dest('site/img/'));
-   gulp.src('src/fonts/*.*')
-   .pipe(gulp.dest('site/css/fonts/'));
-   gulp.src('src/video/*.*')
-   .pipe(gulp.dest('site/video/'));
-   gulp.src('src/fonts/*.*')
-   .pipe(gulp.dest('site/css/fonts/'));
+   gulp.src(src.img+'*.*')
+   .pipe(gulp.dest(dest.img));
+   gulp.src(src.root+'fonts/*.*')
+   .pipe(gulp.dest(dest.css+'fonts/'));
+   gulp.src(src.root+'video/*.*')
+   .pipe(gulp.dest(dest.root+'video/'));
 });
 
 gulp.task('delete', function (cb) {
-    rimraf('./site', cb);
+    rimraf('./'+dest.root, cb);
 });
 
 
@@ -147,7 +148,7 @@ gulp.task('delete', function (cb) {
 // icon font
 var fontname = 'svgfont';
 gulp.task('font', function(){
-  return gulp.src('src/img/svg/*.svg')
+  return gulp.src(src.img+'svg/*.svg')
     // .pipe(svgmin())
     .pipe(iconfont({
       fontName: fontname,
@@ -161,15 +162,15 @@ gulp.task('font', function(){
     }))
     .on('glyphs', function(glyphs, options) {
         console.log(glyphs);
-        gulp.src('src/helpers/_svgfont.sass')
+        gulp.src(src.helpers+'_svgfont.sass')
             .pipe(consolidate('lodash', {
                 glyphs: glyphs,
                 fontName: fontname,
                 fontPath: 'fonts/',
                 className: 'icon'
             }))
-            .pipe(gulp.dest('src/sass/'));
-        gulp.src('src/helpers/icons.html')
+            .pipe(gulp.dest(src.sass+'lib/'));
+        gulp.src(src.helpers+'icons.html')
             .pipe(consolidate('lodash', {
                 glyphs: glyphs,
                 fontName: fontname,
@@ -179,10 +180,11 @@ gulp.task('font', function(){
                 htmlAfter: '"></i>',
                 htmlBr: ''
             }))
-            .pipe(gulp.dest('site/'));
+            .pipe(gulp.dest(dest.root));
     })
-    .pipe(gulp.dest('site/css/fonts/'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest(dest.css+'fonts/'))
+    .pipe(reload({stream: true}))
+    .pipe(notify("Icon font updated!"));
 });
 
 
@@ -196,7 +198,7 @@ gulp.task('browser-sync', function() {
             // directory: true,
             // index: 'index.html'
         },
-        files: [dest.html + '/*.html', dest.css + '/*.css', dest.js + '/*.js'],
+        files: [dest.html + '*.html', dest.css + '*.css', dest.js + '*.js'],
         port: 8080,
         notify: false,
         ghostMode: false,
@@ -207,11 +209,11 @@ gulp.task('browser-sync', function() {
 
 gulp.task('watch', function() {
     gulp.watch(src.sass + '/**/*', ['sass']);
-    gulp.watch('src/js/*', ['js']);
-    gulp.watch('src/img/*', ['copy']);
-    gulp.watch('src/fonts/*', ['copy']);
-    gulp.watch('src/img/svg/*', ['font']);
-    gulp.watch(['src/*.html', 'src/partials/*.html'], ['html']);
+    gulp.watch(src.js+'*', ['js']);
+    gulp.watch(src.img+'*', ['copy']);
+    gulp.watch(src.root+'fonts/*', ['copy']);
+    gulp.watch(src.img+'svg/*', ['font']);
+    gulp.watch([src.root+'*.html', src.root+'partials/*.html'], ['html']);
     gulp.watch(src.img + '/icons/*.png', ['sprite']);
 });
 

@@ -4,36 +4,47 @@ Gulp Boilerplate for generic CSS/HTML/JS development
 
 Structure
 =============
-`/src` - thats where you write code.
+`/src/` - thats where you write code.
 
-`/site` - compiled code.
-
-We have two options for building html
-`/src/index.html` and `/src/partials/` - will be parsed with gulp-rigger.
-
-Optinally one can use jade (it's commented in gulpfile.js). Basic templated is in `/src/jade/`
+`/site/` - compiled code. Do not ever edit this folder.
 
 What is happening
 =============
-_Sass_ is compiled and postprocessed with wonderfull Autoprefixer.
+We have two options for building html
+1) `/src/index.html` and `/src/partials/` - for old school HTML.
 
-`src/img/icons` are joined into sprite, which could be used in Sass like this
+2) Optionally one can use `Jade` (it's commented in gulpfile.js). Basic template is in `/src/jade/`
+
+_Sass_ is compiled and postprocessed with Autoprefixer. We are using `gulp-ruby-sass`, so don't forget to _install Ruby and Sass_ to use this boilerplate.
+
+`src/img/icons` are joined into sprite, which could be used in Sass like this:
 ```
 .icon
-    +s(icon_name)
+    +s(png_name)
 ```
 
-`src/img/svg` are joined into font, and can be used like this
+`src/img/svg` are joined into icon font, and can be used like this:
 ```
-<i class="icon-svgname"></i>
+<i class="icon-svg_name"></i>
 ```
 
-Naming blocks
+We are also using simplest include system with `gulp-rigger`, works for javascrpt and html:
+```
+//= partials/partial.html
+```
+
+Naming
 =============
-I use BEM naming, meaning `.block` for independent block. `.block__element` for elements inside that block. And `.block_modification` for modification of the block.
+We use BEM naming, meaning `.block` for independent block. `.block__element` for elements inside that block. And `.block_modification` for modification of the block.
 
-`layouts.sass` consists of all the columns-header-footer stuff, all with `.l-*` prefixes. So you know it's layout.
+It's noce to name layout blocks with `.l-*` prefixes. So you know it's layout.
 
-States of the blocks use prefix `.is-*`. For example `.is-running`, `.is-hidden`, `.is-open`.
+States of the blocks use prefix `.is-*`. `.is-running`, `.is-hidden`, `.is-open`.
 
-Hooks for js should use prefix `.js-*`.
+For javascript hooks we use prefix `.js-*`.
+
+You are welcome
+=============
+Have fun using it, or borrowing some parts. In case of issues or ideas just create them on github. Or write us at <a href="mailto:html@coderiver.com.ua">html@coderiver.com.ua</a>.
+
+gl & hf.

@@ -7,9 +7,6 @@ img, fieldset, a img { border: none; }
 
 input[type="text"], input[type="email"], input[type="tel"], textarea { -webkit-appearance: none; }
 
-input[type="submit"], button { cursor: pointer; }
-input[type="submit"]::-moz-focus-inner, button::-moz-focus-inner { padding: 0; border: 0; }
-
 textarea { overflow: auto; }
 
 input, button { margin: 0; padding: 0; border: 0; }
@@ -19,7 +16,9 @@ div, input, textarea, select, button, h1, h2, h3, h4, h5, h6, a, span, a:focus {
 ul, ol { list-style-type: none; }
 table { border-spacing: 0; border-collapse: collapse; width: 100%; }
 
-body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
+html { -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+*, *:before, *:after { -webkit-box-sizing: inherit; box-sizing: inherit; }
 
 @font-face { font-family: "svgfont"; src: url("fonts/svgfont.eot"); src: url("fonts/svgfont.eot?#iefix") format("eot"), url("fonts/svgfont.woff") format("woff"), url("fonts/svgfont.woff2") format("woff2"), url("fonts/svgfont.ttf") format("truetype"); font-weight: normal; font-style: normal; }
 .icon, [class^="icon-"], [class*=" icon-"] { font-family: "svgfont"; font-style: normal; font-weight: normal; text-rendering: auto; speak: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -30,16 +29,11 @@ body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
 
 .icon-skrill:before { content: ""; }
 
-.l { *zoom: 1; }
-.l:after { content: " "; display: table; clear: both; }
-.l .l-col1 { float: left; width: 20%; }
-.l .l-col2 { float: right; width: 70%; }
+body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px){
  *{ -webkit-text-size-adjust: none; } }
-@media only screen and (max-width: 1024px){
- div{ display: block; }
- p{ background: red; } }
 
 
 
-/*# sourceMappingURL=screen.css.map */
+/*# sourceMappingURL=style.css.map */
