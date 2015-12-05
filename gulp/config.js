@@ -5,7 +5,7 @@ module.exports = {
     sass    : 'src/sass/',
     js      : 'src/js/',
     img     : 'src/img/',
-    helpers : 'src/helpers/'
+    helpers : 'gulp/helpers/'
   },
   dest:{
     root    : 'site/',
