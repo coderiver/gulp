@@ -8,10 +8,10 @@ module.exports = {
     helpers : 'gulp/helpers/'
   },
   dest:{
-    root    : 'site/',
-    css     : 'site/css/',
-    html    : 'site/',
-    js      : 'site/js/',
-    img     : 'site/img/'
+    root    : 'build/',
+    css     : 'build/css/',
+    html    : 'build/',
+    js      : 'build/js/',
+    img     : 'build/img/'
   },
 };
