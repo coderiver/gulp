@@ -6,7 +6,7 @@ Structure
 =============
 `/src/` - thats where you write code.
 
-`/site/` - compiled code. Do not ever edit this folder.
+`/build/` - compiled code. Do not ever edit this folder.
 
 What is happening
 =============
