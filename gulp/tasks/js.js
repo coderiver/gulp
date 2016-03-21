@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var include = require("gulp-include");
-var uglify = require('gulp-uglify');
+// var uglify = require('gulp-uglify');
 var config = require('../config');
 var browserSync = require('browser-sync');
 reload = browserSync.reload;
