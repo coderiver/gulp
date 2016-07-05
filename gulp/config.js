@@ -1,7 +1,7 @@
 module.exports = {
   src : {
     root    : 'src/',
-    jade    : 'src/jade',
+    pug    : 'src/pug',
     sass    : 'src/sass/',
     js      : 'src/js/',
     img     : 'src/img/',
